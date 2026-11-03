@@ -1,0 +1,37 @@
+package pages;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class DropdownPage {
+    private WebDriver driver;
+    private By dropdownPageLocator =By.id("dropdown");
+
+    public DropdownPage(WebDriver driver){
+        this.driver=driver;
+    }
+
+    //select object method
+    public Select getDropdown(){
+        return new Select(driver.findElement(dropdownPageLocator));
+    }
+
+    public void selectFromDropdown(String option){
+//        Select dropdown = new Select(driver.findElement(dropdownPageLocator));
+        Select dropdown=getDropdown();
+        dropdown.selectByVisibleText(option);
+    }
+    public List<String> getSelectedOptions(){
+        List <WebElement>selectedElements = getDropdown().getAllSelectedOptions();
+        List<String>selectedOptions = new ArrayList<>();
+        for (WebElement element :selectedElements){
+            selectedOptions.add(element.getText());
+        }
+        return selectedOptions ;
+    }
+}
